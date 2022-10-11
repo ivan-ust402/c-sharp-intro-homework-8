@@ -16,28 +16,42 @@ Console.Write("m = ");
 int m = int.Parse(Console.ReadLine()!);
 Console.Write("n = ");
 int n = int.Parse(Console.ReadLine()!);
-
-int[,] firstMatrix = new int[m, n];
-FillMatrix(firstMatrix);
-PrintMatrix(firstMatrix);
-
-Console.WriteLine("Количество столбцов первой матрицы должно быть равно числу строк второй матрицы. Поэтому ");
-Console.WriteLine("p = n");
+Console.WriteLine("Количество столбцов первой матрицы должно быть ");
+Console.WriteLine("равно числу строк второй матрицы.");
+Console.WriteLine($"Поэтому p = n = {n}");
 int p = n;
 Console.WriteLine("Введите количество столбцов второй матрицы.");
 
 Console.Write("t = ");
 int t = int.Parse(Console.ReadLine()!);
 
+int[,] firstMatrix = new int[m, n];
+FillMatrix(firstMatrix);
+PrintMatrix(firstMatrix, "Первая матрица: ");
 
 int[,] secondMatrix = new int[p, t];
 FillMatrix(secondMatrix);
-PrintMatrix(secondMatrix);
+PrintMatrix(secondMatrix, "Вторая матрица: ");
 
+int[,] finishMatrix = MultiplyMatrices(firstMatrix, secondMatrix);
+PrintMatrix(finishMatrix, "Результирующая матрица: ");
 
-
-
-
+int[,] MultiplyMatrices(int[,] firstMatrix, int[,] secondMatrix) {
+    int[,] multMatrix = new int[firstMatrix.GetLength(0), secondMatrix.GetLength(1)];
+    for (int i = 0; i < firstMatrix.GetLength(0); i++)
+    {
+            for (int j = 0; j < secondMatrix.GetLength(1); j++)
+        {
+            int sum = 0;
+            for (int k = 0; k < firstMatrix.GetLength(1); k++)
+            {
+                sum = sum + firstMatrix[i, k] * secondMatrix[k, j];
+            }
+            multMatrix[i, j] = sum;
+        }
+    }
+    return multMatrix;
+}
 
 
 void FillMatrix(int[,] matrix)
@@ -52,8 +66,10 @@ void FillMatrix(int[,] matrix)
     }
 }
 
-void PrintMatrix(int[,] matrix)
-{
+void PrintMatrix(int[,] matrix, string nameOfMatrix)
+{   
+    Console.WriteLine();
+    Console.WriteLine(nameOfMatrix);
     for (int i = 0; i < matrix.GetLength(0); i++)
     {
         for (int j = 0; j < matrix.GetLength(1); j++)
@@ -62,4 +78,5 @@ void PrintMatrix(int[,] matrix)
         }
         Console.WriteLine();
     }
+    Console.WriteLine();
 }
