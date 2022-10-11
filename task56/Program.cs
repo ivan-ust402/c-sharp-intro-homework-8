@@ -24,7 +24,24 @@ int[,] matrix = new int[m, n];
 FillMatrix(matrix);
 PrintMatrix(matrix);
 
-
+int MinSumElem(int[,] matrix) {
+    int lastSum = 0;
+    int indexRowWithMinSum = 0;
+    for (int i = 0; i < matrix.GetLength(0); i++)
+    {   
+        int currentSum = 0;
+        for (int j = 0; j < matrix.GetLength(1); j++)
+        {
+            currentSum = currentSum + matrix[i, j];
+        }
+        if(i == 0) lastSum = currentSum;
+        if (currentSum < lastSum) {
+            lastSum = currentSum;
+            indexRowWithMinSum = i;
+        } 
+    }
+    return indexRowWithMinSum;
+}
 
 
 void FillMatrix(int[,] matrix)
