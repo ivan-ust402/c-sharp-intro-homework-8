@@ -11,15 +11,32 @@
 Должно быть равно числу строк второй
 */
 Console.Clear();
-Console.WriteLine("Введите количество строк и столбцов массива.");
+Console.WriteLine("Введите количество строк и столбцов первой матрицы.");
 Console.Write("m = ");
 int m = int.Parse(Console.ReadLine()!);
 Console.Write("n = ");
 int n = int.Parse(Console.ReadLine()!);
 
-int[,] matrix = new int[m, n];
-FillMatrix(matrix);
-PrintMatrix(matrix);
+int[,] firstMatrix = new int[m, n];
+FillMatrix(firstMatrix);
+PrintMatrix(firstMatrix);
+
+Console.WriteLine("Количество столбцов первой матрицы должно быть равно числу строк второй матрицы. Поэтому ");
+Console.WriteLine("p = n");
+int p = n;
+Console.WriteLine("Введите количество столбцов второй матрицы.");
+
+Console.Write("t = ");
+int t = int.Parse(Console.ReadLine()!);
+
+
+int[,] secondMatrix = new int[p, t];
+FillMatrix(secondMatrix);
+PrintMatrix(secondMatrix);
+
+
+
+
 
 
 
