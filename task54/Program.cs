@@ -19,9 +19,26 @@ int n = int.Parse(Console.ReadLine()!);
 int[,] matrix = new int[m, n];
 FillMatrix(matrix);
 PrintMatrix(matrix);
+Console.WriteLine();
+SortEachRowOfMatrix(matrix);
+PrintMatrix(matrix);
 
-void SortMatrix(int[,] matrix) {
-    
+void SortEachRowOfMatrix(int[,] matrix) {
+    for (int i = 0; i < matrix.GetLength(0); i++)
+    {
+        for (int j = 0; j < matrix.GetLength(1); j++)
+        {
+            for (int k = j + 1; k < matrix.GetLength(1); k++)
+            {
+                if (matrix[i, j] < matrix[i, k]) 
+                {
+                    int temp = matrix[i, j];
+                    matrix[i, j] = matrix[i, k];
+                    matrix[i, k] = temp;
+                }
+            }
+        }
+    }
 }
 
 void FillMatrix(int[,] matrix)
