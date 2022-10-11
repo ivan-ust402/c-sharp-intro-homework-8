@@ -10,37 +10,39 @@
 8 4 4 2
 */
 Console.Clear();
-Console.WriteLine("Введите желаемую размерность массива.");
+Console.WriteLine("Введите количество строк и столбцов массива.");
 Console.Write("m = ");
 int m = int.Parse(Console.ReadLine()!);
 Console.Write("n = ");
 int n = int.Parse(Console.ReadLine()!);
 
-int[,] array = new int[m, n];
-FillArray(array);
-PrintArray(array);
+int[,] matrix = new int[m, n];
+FillMatrix(matrix);
+PrintMatrix(matrix);
 
+void SortMatrix(int[,] matrix) {
+    
+}
 
-
-void FillArray(int[,] array)
+void FillMatrix(int[,] matrix)
 {
     Random randomGen = new Random();
-    for (int i = 0; i < array.GetLength(0); i++)
+    for (int i = 0; i < matrix.GetLength(0); i++)
     {
-        for (int j = 0; j < array.GetLength(1); j++)
+        for (int j = 0; j < matrix.GetLength(1); j++)
         {
-            array[i, j] = randomGen.Next(0, 10);
+            matrix[i, j] = randomGen.Next(0, 10);
         }
     }
 }
 
-void PrintArray(int[,] array)
+void PrintMatrix(int[,] matrix)
 {
-    for (int i = 0; i < array.GetLength(0); i++)
+    for (int i = 0; i < matrix.GetLength(0); i++)
     {
-        for (int j = 0; j < array.GetLength(1); j++)
+        for (int j = 0; j < matrix.GetLength(1); j++)
         {
-            Console.Write($"{array[i, j]}   ");
+            Console.Write($"{matrix[i, j]}   ");
         }
         Console.WriteLine();
     }
