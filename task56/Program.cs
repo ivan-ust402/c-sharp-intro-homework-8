@@ -23,6 +23,10 @@ int n = int.Parse(Console.ReadLine()!);
 int[,] matrix = new int[m, n];
 FillMatrix(matrix);
 PrintMatrix(matrix);
+int rowWithMinSum = MinSumElem(matrix);
+// Прибавляю к индексу найденной строки единицу, чтобы вывод был, как 
+// показано в примере к заданию 
+Console.WriteLine($"Минимальная сумма элементов находится в {rowWithMinSum+ 1} строке матрицы");
 
 int MinSumElem(int[,] matrix) {
     int lastSum = 0;
