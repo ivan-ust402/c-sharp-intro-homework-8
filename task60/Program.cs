@@ -29,6 +29,8 @@ else
     int[,,] array3D = new int[x, y, z];
     FillArray3D(array3D);
     PrintArray3D(array3D);
+    Console.WriteLine("Форматирование вывода матрицы как в примере к заданию");
+    PrintArray3DHowInExample(array3D);
 }
 
 void FillArray3D(int[,,] array)
@@ -98,5 +100,21 @@ void PrintArray3D(int[,,] array)
             Console.WriteLine();
         }
         Console.WriteLine();
+    }
+}
+
+void PrintArray3DHowInExample(int[,,] array)
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        // Console.WriteLine($"x = {i}");
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            for (int k = 0; k < array.GetLength(2); k++)
+            {
+                Console.Write($"{array[i, j, k]}({j}, {k}, {i}) ");
+            }
+            Console.WriteLine();
+        }
     }
 }
