@@ -17,7 +17,6 @@ int Factorial(int number) {
 }
 
 int[,] PaskalTriangle(int rows) {
-    int position = rows / 2 - 1;
     int[,] resultMatrix = new int[rows, rows];
     for (int i = 0; i < rows; i++)
     {   
