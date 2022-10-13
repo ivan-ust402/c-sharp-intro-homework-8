@@ -31,27 +31,60 @@ void FillMatrix(int[,] matrix, int[] array) {
     }
     // Пока не закончится число повторов, выполнять следующие действия
     while(iterator != count + 1) {
+        int action = 0;
         // int maxValueOfOneIteration = 
-        for (int i = iterator; i < matrix.GetLength(0) - iterator; i++)
-        {
-            for (int j = iterator; j < matrix.GetLength(1) - iterator; j++)
+        // for (int i = iterator; i < matrix.GetLength(0) - iterator; i++)
+        // {
+        //     for (int j = iterator; j < matrix.GetLength(1) - iterator; j++)
+        //     {
+        //         // Заполняем верхнюю строку
+        //         if (i == iterator && j >= iterator) {
+        //             matrix[i, j] = array[index++]; 
+        //         }
+        //         // Заполняем правый столбец
+        //         else if (i > iterator && j == column - iterator && i < row - iterator) {
+        //             matrix[i, j] = array[index++];
+        //         }
+        //         // Заполняем нижнюю строку
+        //         else if (i == row - iterator && j <= column - iterator) {
+        //             matrix[i, column - j] = array[index++]; 
+        //         }
+        //         // Заполняем левый столбец
+        //         else if (i > iterator && j == iterator && i < row - iterator) {
+        //             matrix[row - i, j] = array[index++]; 
+        //         }   
+        //     }
+        // }
+
+        // Заполняем верхнюю строку
+        if (action == 0) {
+            int i = iterator;
+            for (int j = iterator; j <= column - iterator; j++)
             {
-                // Заполняем верхнюю строку
-                if (i == iterator && j >= iterator) {
-                    matrix[i, j] = array[index++]; 
-                }
-                // Заполняем правый столбец
-                else if (i > iterator && j == column - iterator && i < row - iterator) {
-                    matrix[i, j] = array[index++];
-                }
-                // Заполняем нижнюю строку
-                else if (i == row - iterator && j <= column - iterator) {
-                    matrix[i, column - j] = array[index++]; 
-                }
-                // Заполняем левый столбец
-                else if (i > iterator && j == iterator && i < row - iterator) {
-                    matrix[row - i, j] = array[index++]; 
-                }   
+                matrix[i, j] = array[index++];
+            }
+            action++;
+        } 
+        if (action == 1) {
+            int j = column - iterator;
+            for (int i = iterator + 1; i < row - iterator; i++)            
+            {
+                matrix[i, j] = array[index++];
+            }
+            action++;
+        }
+        if (action == 2) {
+            int i = row - iterator;
+            for (int j = column - iterator; j >= iterator; j-- ) {
+                matrix[i, j] = array[index++];                
+            }
+            action++;
+        }
+        if (action == 3) {
+            int j = iterator;
+            for (int i = row - 1 - iterator; i > iterator; i--)
+            {
+                matrix[i, j] = array[index++];
             }
         }
         iterator++;
