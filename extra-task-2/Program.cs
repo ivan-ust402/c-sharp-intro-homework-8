@@ -37,12 +37,12 @@ void PrintMatrix(int[,] matrix)
     {   
         for (int j = 0; j <= matrix.GetLength(1) - i; j++)
         {   
-            Console.Write(" ");
+            Console.Write("  ");
         }
         for (int j = 0; j <= i; j++)
         {   
             Console.Write(" ");
-            Console.Write($"{matrix[i, j]}");
+            Console.Write($" {matrix[i, j]} ");
         }
         Console.WriteLine();
         Console.WriteLine();
