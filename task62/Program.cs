@@ -9,12 +9,20 @@
 Console.Clear();
 Console.WriteLine("Спиральное заполнение матрицы 4 х 4");
 
-int[] array = new int[]{01, 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, 12, 13, 14, 15, 16};
-int[,] matrix = new int[4,4];
-FillMatrix(matrix, array);
+int[,] matrix = new int[4, 4];
+FillMatrix(matrix);
 PrintMatrix(matrix);
 
-void FillMatrix(int[,] matrix, int[] array) {
+Console.WriteLine("Введите размерность квадратичной матрицы.");
+Console.Write("m = n = ");
+int m = int.Parse(Console.ReadLine()!);
+int n = m;
+int[,] userMatrix = new int[m, n];
+FillMatrix(userMatrix);
+PrintMatrix(userMatrix);
+
+void FillMatrix(int[,] matrix)
+{
     int row = matrix.GetLength(0) - 1;
     int column = matrix.GetLength(1) - 1;
     int lengthOfNumbers = matrix.GetLength(0) * matrix.GetLength(1);
@@ -22,71 +30,69 @@ void FillMatrix(int[,] matrix, int[] array) {
     // Сколько раз нужно пройти по кругу, чтобы заполнить матрицу?
     int count = 0;
     int iterator = 0;
-    int index = 0;
-    if (matrix.GetLength(0) % 2 == 0) {
+    int value = 0;
+    if (matrix.GetLength(0) % 2 == 0)
+    {
         count = matrix.GetLength(0) / 2;
     }
-    else {
+    else
+    {
         count = matrix.GetLength(0) / 2 + 1;
     }
     // Пока не закончится число повторов, выполнять следующие действия
-    while(iterator != count + 1) {
+    while (iterator != count)
+    {
         int action = 0;
-        // int maxValueOfOneIteration = 
-        // for (int i = iterator; i < matrix.GetLength(0) - iterator; i++)
-        // {
-        //     for (int j = iterator; j < matrix.GetLength(1) - iterator; j++)
-        //     {
-        //         // Заполняем верхнюю строку
-        //         if (i == iterator && j >= iterator) {
-        //             matrix[i, j] = array[index++]; 
-        //         }
-        //         // Заполняем правый столбец
-        //         else if (i > iterator && j == column - iterator && i < row - iterator) {
-        //             matrix[i, j] = array[index++];
-        //         }
-        //         // Заполняем нижнюю строку
-        //         else if (i == row - iterator && j <= column - iterator) {
-        //             matrix[i, column - j] = array[index++]; 
-        //         }
-        //         // Заполняем левый столбец
-        //         else if (i > iterator && j == iterator && i < row - iterator) {
-        //             matrix[row - i, j] = array[index++]; 
-        //         }   
-        //     }
-        // }
+        // Обработчик последнего цикла при нечетной размерности матрицы
+        if (iterator == count - 1 && matrix.GetLength(0) % 2 != 0)
+        {   
+            int i = count - 1;
+            int j = i;
+            matrix[i, j] = ++value;
+        }
+        else
+        {   
+            // Заполняем верхнюю строку
+            if (action == 0)
+            {
+                int i = iterator;
+                for (int j = iterator; j <= column - iterator; j++)
+                {
+                    matrix[i, j] = ++value;
+                }
+                action++;
+            }
+            // Заполняем правый столбец
+            if (action == 1)
+            {
+                int j = column - iterator;
+                for (int i = iterator + 1; i < row - iterator; i++)
+                {
+                    matrix[i, j] = ++value;
+                }
+                action++;
+            }
+            // Заполняем нижнюю строку
+            if (action == 2)
+            {
+                int i = row - iterator;
+                for (int j = column - iterator; j >= iterator; j--)
+                {
+                    matrix[i, j] = ++value;
+                }
+                action++;
+            }
+            // Заполняем левый столбец
+            if (action == 3)
+            {
+                int j = iterator;
+                for (int i = row - 1 - iterator; i > iterator; i--)
+                {
+                    matrix[i, j] = ++value;
+                }
+            }
+        }
 
-        // Заполняем верхнюю строку
-        if (action == 0) {
-            int i = iterator;
-            for (int j = iterator; j <= column - iterator; j++)
-            {
-                matrix[i, j] = array[index++];
-            }
-            action++;
-        } 
-        if (action == 1) {
-            int j = column - iterator;
-            for (int i = iterator + 1; i < row - iterator; i++)            
-            {
-                matrix[i, j] = array[index++];
-            }
-            action++;
-        }
-        if (action == 2) {
-            int i = row - iterator;
-            for (int j = column - iterator; j >= iterator; j-- ) {
-                matrix[i, j] = array[index++];                
-            }
-            action++;
-        }
-        if (action == 3) {
-            int j = iterator;
-            for (int i = row - 1 - iterator; i > iterator; i--)
-            {
-                matrix[i, j] = array[index++];
-            }
-        }
         iterator++;
     }
 }
@@ -98,7 +104,14 @@ void PrintMatrix(int[,] matrix)
     {
         for (int j = 0; j < matrix.GetLength(1); j++)
         {
-            Console.Write($"{matrix[i, j]}   ");
+            if (matrix[i, j] < 10) 
+            {
+                Console.Write($"0{matrix[i, j]}   ");                
+            } 
+            else
+            {
+                Console.Write($"{matrix[i, j]}   ");
+            }
         }
         Console.WriteLine();
     }
