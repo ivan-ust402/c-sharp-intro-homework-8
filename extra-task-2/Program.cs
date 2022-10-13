@@ -17,10 +17,11 @@ int Factorial(int number) {
 }
 
 int[,] PaskalTriangle(int rows) {
+    int position = rows / 2 - 1;
     int[,] resultMatrix = new int[rows, rows];
     for (int i = 0; i < rows; i++)
     {   
-        for (int j = i; j <= i; j++)
+        for (int j = 0; j <= i; j++)
         {
             resultMatrix[i, j] = Factorial(i) / (Factorial(j) * Factorial(i - j));
         }
@@ -33,11 +34,17 @@ void PrintMatrix(int[,] matrix)
 {
     Console.WriteLine();
     for (int i = 0; i < matrix.GetLength(0); i++)
-    {
-        for (int j = 0; j < matrix.GetLength(1); j++)
-        {
-            Console.Write($"{matrix[i, j]}   ");
+    {   
+        for (int j = 0; j <= matrix.GetLength(1) - i; j++)
+        {   
+            Console.Write(" ");
         }
+        for (int j = 0; j <= i; j++)
+        {   
+            Console.Write(" ");
+            Console.Write($"{matrix[i, j]}");
+        }
+        Console.WriteLine();
         Console.WriteLine();
     }
     Console.WriteLine();
