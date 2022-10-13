@@ -16,16 +16,14 @@ int n = int.Parse(Console.ReadLine()!);
 int[,] matrix = new int[m, n];
 FillMatrix(matrix);
 PrintMatrix(matrix);
-int[] arrayOfIndeces = FindIndecesOfMinValues(matrix);
-PrintArray(arrayOfIndeces);
+int minValue = FindMinValue(matrix);
+int amountMinValues = FindAmountMinValues(matrix, minValue);
+int[] indeces = FindIndecesOfMatchingValues(matrix, amountMinValues);
 
+PrintArray(indeces);
 
-
-int[] FindIndecesOfMinValues(int[,] matrix) {
+int FindMinValue(int[,] matrix) {
     int minValue = matrix[0, 0];
-    int[] arrayOfindeces = new int[2];
-
-
     for (int i = 0; i < matrix.GetLength(0); i++)
     {
         for (int j = 0; j < matrix.GetLength(1); j++)
@@ -35,7 +33,10 @@ int[] FindIndecesOfMinValues(int[,] matrix) {
             } 
         }
     }
+    return minValue;
+}
 
+int FindAmountMinValues(int[,] matrix, int value) {
     int count = 0;
     for (int i = 0; i < matrix.GetLength(0); i++)
     {
@@ -46,7 +47,10 @@ int[] FindIndecesOfMinValues(int[,] matrix) {
             } 
         }
     }
+    return count;
+}
 
+int[] FindIndecesOfMatchingValues(int[,] matrix, int count) {
     int[] resultArray = new int[count * 2];
     int index = 0;
     while(count != 0) {
@@ -63,7 +67,6 @@ int[] FindIndecesOfMinValues(int[,] matrix) {
             }
         }
     }
-
     return resultArray;
 }
 
