@@ -16,60 +16,70 @@ int n = int.Parse(Console.ReadLine()!);
 int[,] matrix = new int[m, n];
 FillMatrix(matrix);
 PrintMatrix(matrix);
-int minValue = FindMinValue(matrix);
-int amountMinValues = FindAmountMinValues(matrix, minValue);
-int[] indeces = FindIndecesOfMatchingValues(matrix, amountMinValues);
-
+int[] indeces = FindIndeces(matrix);
 PrintArray(indeces);
+int[,] resultMatrix = DeleteColumnsAndRows(matrix, indeces);
+PrintMatrix(resultMatrix);
 
-int FindMinValue(int[,] matrix) {
+int[] FindIndeces(int[,] matrix)
+{
     int minValue = matrix[0, 0];
+    int[] array = new int[2];
+    int row = 0;
+    int column = 0;
     for (int i = 0; i < matrix.GetLength(0); i++)
     {
         for (int j = 0; j < matrix.GetLength(1); j++)
         {
-            if (minValue > matrix[i, j]) {
-                minValue = matrix[i, j];
-            } 
-        }
-    }
-    return minValue;
-}
-
-int FindAmountMinValues(int[,] matrix, int value) {
-    int count = 0;
-    for (int i = 0; i < matrix.GetLength(0); i++)
-    {
-        for (int j = 0; j < matrix.GetLength(1); j++)
-        {
-            if (minValue == matrix[i, j]) {
-                count++;
-            } 
-        }
-    }
-    return count;
-}
-
-int[] FindIndecesOfMatchingValues(int[,] matrix, int count) {
-    int[] resultArray = new int[count * 2];
-    int index = 0;
-    while(count != 0) {
-        for (int i = 0; i < matrix.GetLength(0); i++)
-        {
-            for (int j = 0; j < matrix.GetLength(1); j++)
+            if (minValue > matrix[i, j])
             {
-                if (minValue == matrix[i, j]) {
-                    resultArray[index] = i;
-                    resultArray[++index] = j;
-                    count--;
-                    index++;
-                } 
+                minValue = matrix[i, j];
+                row = i;
+                column = j;
             }
         }
     }
-    return resultArray;
+    array[0] = row;
+    array[1] = column;
+    return array;
 }
 
+int[,] DeleteColumnsAndRows(int[,] matrix, int[] array)
+{
+    int[,] temp = new int[matrix.GetLength(0) - 1, matrix.GetLength(1)];
+    int[,] resultMatrix = new int[matrix.GetLength(0) - 1, matrix.GetLength(1) - 1];
+
+    for (int i = 0; i < array[0]; i++)
+    {
+        for (int j = 0; j < temp.GetLength(1); j++)
+        {
+            temp[i, j] = matrix[i, j];
+        }
+    }
+    for (int i = array[0]; i < temp.GetLength(0); i++)
+    {
+        for (int j = 0; j < matrix.GetLength(1); j++)
+        {
+            temp[i, j] = matrix[i + 1, j];
+        }
+    }
+
+    for (int i = 0; i < resultMatrix.GetLength(0); i++)
+    {
+        for (int j = 0; j < array[1]; j++)
+        {
+            resultMatrix[i, j] = temp[i, j];
+        }
+    }
+    for (int i = 0; i < resultMatrix.GetLength(0); i++)
+    {
+        for (int j = array[1]; j < resultMatrix.GetLength(1); j++)
+        {
+            resultMatrix[i, j] = temp[i, j + 1];
+        }
+    }
+    return resultMatrix;
+}
 
 void FillMatrix(int[,] matrix)
 {
@@ -85,6 +95,7 @@ void FillMatrix(int[,] matrix)
 
 void PrintMatrix(int[,] matrix)
 {
+    Console.WriteLine();
     for (int i = 0; i < matrix.GetLength(0); i++)
     {
         for (int j = 0; j < matrix.GetLength(1); j++)
@@ -93,14 +104,22 @@ void PrintMatrix(int[,] matrix)
         }
         Console.WriteLine();
     }
+    Console.WriteLine();
 }
 
 void PrintArray(int[] array)
-{       
-    Console.WriteLine();
+{
+    Console.WriteLine("Индексы первого минимального числа:");
     for (int i = 0; i < array.Length; i++)
     {
-        Console.Write($"{array[i]}   ");
+        if (i == 0)
+        {
+            Console.Write($"i = {array[i]}   ");
+        }
+        else
+        {
+            Console.Write($"j = {array[i]}   ");
+        }
     }
     Console.WriteLine();
 }
